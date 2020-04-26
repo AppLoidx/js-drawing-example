@@ -89,6 +89,7 @@
         board1.downloadImgWithExtension();
         let id = getRandomInt(4);
         $('#letter').attr('src', `img/letter-${id}.jpg`);
+        board1.resetBackground();
     });
 
     const usedLetter = [];
