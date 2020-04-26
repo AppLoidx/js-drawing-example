@@ -1,0 +1,114 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS_DRAWING_EXAMPLE</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/drawingboard.js/dist/drawingboard.min.css">
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+    <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
+
+    <style>
+        #board1 {
+            height: 250px;
+            width: 250px;
+        }
+
+        button:focus{
+            outline: none!important;
+        }
+
+    </style>
+</head>
+<body class="clearfix">
+<!-- As a heading -->
+<nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Kupriyanov</span>
+</nav>
+<main>
+    <section class="drawing-board h-100 d-flex flex-row justify-content-center">
+        <div>
+            <div class="image-section text-center">
+                <img src="img/letter-1.jpg" id="letter" alt="" width="220px" class="img-fluid mx-auto">
+            </div>
+            <div class="text-center">
+                <button class="mdc-button mdc-button--outline foo-button mx-auto" id="change-letter">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Поменять букву</span>
+                </button>
+            </div>
+
+
+            <div id="board1" class="mx-auto"></div>
+            <div class="board-controls text-center d-flex justify-content-between">
+
+                <button class="mdc-button mdc-button--outline foo-button" id="clear-1">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Очистить</span>
+                </button>
+                <button class="mdc-button mdc-button--raised foo-button" id="download-1">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Загрузить</span>
+                </button>
+
+            </div>
+        </div>
+
+    </section>
+</main>
+<footer>
+
+</footer>
+<script>
+    mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
+</script>
+<script src="bower_components/drawingboard.js/dist/drawingboard.min.js"></script>
+<script>
+    const board1 = new DrawingBoard.Board('board1', {
+        controls: false,
+        webStorage: false,
+        size: 10
+    });
+    board1.downloadImgWithExtension = function() {
+        let img = this.getImg();
+        img = img.replace("image/png", "image/octet-stream");
+        const link = document.createElement('a');
+        link.download = "image.jpg";
+        link.href = img;
+        link.click();
+    }
+    $("#clear-1").on('click', function () {
+        board1.resetBackground();
+    });
+    $("#download-1").on('click', function () {
+        board1.downloadImgWithExtension();
+        let id = getRandomInt(4);
+        $('#letter').attr('src', `img/letter-${id}.jpg`);
+    });
+
+    const usedLetter = [];
+    function getRandomInt(max) {
+
+        let numb = Math.floor(Math.random() * Math.floor(max));
+        if (numb === usedLetter[0]) {
+            return getRandomInt(max);
+        } else {
+            usedLetter[0] = numb;
+            return numb;
+        }
+    }
+
+    $("#change-letter").on('click', function () {
+        let id = getRandomInt(4);
+        $('#letter').attr('src', `img/letter-${id}.jpg`);
+        board1.resetBackground();
+    })
+
+</script>
+</body>
+</html>
