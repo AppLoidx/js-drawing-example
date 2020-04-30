@@ -15,8 +15,8 @@
 
     <style>
         #board1 {
-            height: 64px;
-            width: 64px;
+            height: 248px;
+            width: 248px;
         }
 
         button:focus{
@@ -72,7 +72,7 @@
     const board1 = new DrawingBoard.Board('board1', {
         controls: false,
         webStorage: false,
-        size: 4
+        size: 10
     });
     board1.downloadImgWithExtension = function() {
         let img = this.getImg();
