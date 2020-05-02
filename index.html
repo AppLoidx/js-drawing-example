@@ -24,6 +24,8 @@
         }
 
     </style>
+    <script src="https://unpkg.com/driver.js/dist/driver.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/driver.js/dist/driver.min.css">
 </head>
 <body class="clearfix">
 <!-- As a heading -->
@@ -110,6 +112,49 @@
         board1.resetBackground();
     })
 
+</script>
+
+<script>
+    const driver = new Driver();
+    driver.defineSteps([
+        {
+            element : '#letter',
+            popover: {
+                title: "Здесь отображается буква",
+                description : "Ваша задача написать её так, как считаете нужным. Ну нужно записывать её точь-в-точь, так " +
+                    "как все люди пишут буквы по-разному и мы хотим различать все возможные варианты"
+            }
+        },
+        {
+            element : '#board1',
+            popover: {
+                title: "Холст",
+                description : "Нарисуйте здесь букву показанную ранее"
+            }
+        },
+        {
+            element : '#clear-1',
+            popover: {
+                title: "Очистить холст",
+                description : "Если вы случайно ошиблись - очистите холст и начните заново"
+            }
+        },
+        {
+            element : '#download-1',
+            popover: {
+                title: "Отправить",
+                description : "Отправьте нам вашу букву!"
+            }
+        },
+        {
+            element : '#change-letter',
+            popover: {
+                title: "Поменять букву",
+                description : "Если вы считаете, что буква очень сложная или не прогрузилась вы можете её обновить"
+            }
+        }
+    ]);
+    driver.start();
 </script>
 </body>
 </html>
